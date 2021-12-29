@@ -105,11 +105,13 @@ export default {
   },
   methods: {
     async save () {
-      console.log(this.form)
       this.loading = true
       const valid = this.validate()
       if (valid) {
-        const resp = await this.$store.dispatch('vehicleModule/storeVehicle',this.form )
+        const resp = await this.$store.dispatch(
+          'vehicleModule/storeVehicle',
+          this.form
+        )
         if (!resp) {
           this.$swal({
             icon: 'error',
@@ -118,12 +120,17 @@ export default {
           })
         }
         if (resp) {
+          this.$swal({
+            icon: 'success',
+            title: 'Exito',
+            text: 'Los datos se han guardado con exito'
+          })
           this.loading = false
+          this.form = {}
           this.$emit('close-modal')
         }
       }
       this.loading = false
-      
     },
     validate () {
       return this.$refs.form.validate()
