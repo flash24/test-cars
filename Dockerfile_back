@@ -10,9 +10,8 @@ RUN cp .env.example .env # for development purposes only
 
 RUN composer install --optimize-autoloader --no-interaction --no-progress
 
-# RUN php artisan migrate --force
 RUN php artisan key:generate
 
 RUN chown -R www-data:www-data /app
-RUN chmod 775 /app
+RUN chmod -R 775 /app
 RUN chmod -R 777 /app/storage

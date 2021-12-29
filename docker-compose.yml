@@ -19,11 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_back
-    # volumes:
-    #   - ./www:/app
-    # expose:
-    #   - '80'
-    #   - '443'
+    volumes:
+      - ./www:/app
     ports:
       - '80:80'
     networks:
@@ -34,17 +31,12 @@ services:
       - db
     build:
       context: .
-      dockerfile: Dockerfile_back
+      dockerfile: Dockerfile_migrate
     volumes:
       - ./www:/app
-    # expose:
-    #   - '80'
-    #   - '443'
     command: php artisan migrate --force
-    # ports:
-    #   - '80:80'
     networks:
-      - backend
+      - vpn_BD
 networks:
   vpn_BD:
   backend:
