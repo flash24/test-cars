@@ -42,7 +42,7 @@ class AuthController extends Controller
         if (!Auth::attempt($request->only('email','password'))) {
             return response()->json([
                 'message' => 'Invalid login'
-            ], 401);
+            ], 403);
         }
         $user = User::where('email', $request->email)->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;

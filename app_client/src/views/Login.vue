@@ -78,10 +78,20 @@ export default {
       const valid = this.validate()
       if (valid) {
         const resp = await this.$store.dispatch('userModule/login', {
-           email: this.user,
-           password: this.password,
+          email: this.user,
+          password: this.password
         })
-        console.log(resp)
+        if (!resp) {
+          this.$swal({
+            icon: 'error',
+            title: 'Incorrect Login',
+            text:
+              'Los datos proporcionados son incorrectos'
+          })
+        }
+        if (resp) {
+           window.location.href = '/';
+        }
       }
       this.loading = false
     },
