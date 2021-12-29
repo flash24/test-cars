@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        <v-btn color="success" class="mr-4">
+        <v-btn color="success" class="mr-4" @click="openModalNew()">
           <v-icon left>
             mdi-plus
           </v-icon>
@@ -39,13 +39,30 @@
         </v-card>
       </v-col>
     </v-row>
+    <NewModal :dialog="modalNew" v-on:close-modal="closeModalNew()" />
   </v-container>
 </template>
 <script>
+import NewModal from '@/components/vehicle/modals/v-modal-new'
 export default {
   name: 'VehicleList',
-  mounted () {
-      
+  components: {
+    NewModal
+  },
+  data () {
+    return {
+      modalNew: false
+    }
+  },
+  mounted () {},
+  methods: {
+    openModalNew () {
+        this.modalNew = true
+    },
+    closeModalNew () {
+      this.modalNew = false
+      //   this.reloadList()
+    }
   }
 }
 </script>
