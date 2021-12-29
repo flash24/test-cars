@@ -2,9 +2,8 @@ import axios from 'axios';
 
 // const api_url = process.env.MIX_APP_API_HOST;
 const api_url = "http://localhost:8000";
-const token = localStorage.getItem('token')
-// const token = ""
-console.log(token)
+const localData = JSON.parse(localStorage.getItem('data'))
+const token = localData.userModule ? localData.userModule.token : ""
 const instance = axios.create({
     baseURL: api_url + '/api/',
     headers: {
@@ -18,9 +17,11 @@ instance.interceptors.response.use(function (response) {
 }, function (error) {
     switch (error.response.status) {
         case 401:
+            localStorage.setItem('data', null);
             window.location = '/login'
             break
         case 419:
+            localStorage.setItem('data', null);
             window.location = '/login'
             break
         default:

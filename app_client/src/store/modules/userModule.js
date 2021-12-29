@@ -8,7 +8,6 @@ export default {
     actions: {
         async getUserInfo({ commit }) {
             const response = await ApiV1.get('userinfo').catch(e => {
-                console.log("error")
                 console.error(e)
                 return false
             })
@@ -34,7 +33,6 @@ export default {
             state.user = data
         },
         SET_TOKEN(state, data) {
-            localStorage.setItem('token', data);
             state.token = data
         },
     },
