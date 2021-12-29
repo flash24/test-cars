@@ -7,11 +7,11 @@ export default {
     },
     actions: {
         async getUserInfo({ commit}) {
-            const response = await ApiV1.get('/userinfo').catch(e => {
+            const response = await ApiV1.get('userinfo').catch(e => {
                 console.error(e)
             })
-            console.log(response)
             commit('SET_USER', response)
+            return true
         },
     },
     mutations: {

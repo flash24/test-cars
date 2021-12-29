@@ -6,10 +6,27 @@ const api_url = "http://localhost:8000";
 console.log(store)
 // const token = store.state.userModule.token
 const token = ""
-export const ApiV1 = axios.create({
-    baseURL: api_url + '/',
+const instance = axios.create({
+    baseURL: api_url + '/api/',
     headers: {
     	'accept': 'application/json',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`,
+        'Access-Control-Allow-Origin': '*',
     }
 });
+instance.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    switch (error.response.status) {
+        case 401:
+            window.location = '/login'
+            break
+        case 419:
+            window.location = '/login'
+            break
+        default:
+            return Promise.reject(error);
+
+    }
+});
+export const ApiV1 = instance

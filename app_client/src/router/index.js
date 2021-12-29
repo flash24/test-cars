@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
+import Login from '@/views/Login.vue'
 import store from '@/store/index.js'
 Vue.use(VueRouter)
 
@@ -13,7 +14,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/Login.vue')
+    component: Login
   },
   {
     path: '/about',
@@ -33,15 +34,12 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   try {
-    // await store.dispatch('permissionModule/getPermissions');
-    // store.dispatch('clientModule/getInfo')
-
     if (to.name != 'Login') {
-
       await store.dispatch('userModule/getUserInfo');
-      // next();
+      next();
+    } else {
+      next();
     }
-    next();
   } catch (error) {
     next();
   }
