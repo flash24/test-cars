@@ -23,7 +23,7 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-select
-                    :items="[]"
+                    :items="types"
                     label="Tipo de vehiculo"
                     item-text="description"
                     item-value="id"
@@ -32,16 +32,22 @@
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="tipo de motor"
-                    type="text"
-                  ></v-text-field>
+                  <v-select
+                    :items="motors"
+                    label="Tipo de motor"
+                    item-text="description"
+                    item-value="id"
+                    required
+                    :rules="[v => !!v || 'El tipo de vehiculo es requerido']"
+                  ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="numero de llantas"
-                    type="text"
-                  ></v-text-field>
+                  <v-select
+                    :items="[2,3,4]"
+                    label="Numero de llantas"
+                    required
+                    :rules="[v => !!v || 'El numero de llanta es requerido']"
+                  ></v-select>
                 </v-col>
               </v-row>
             </v-container>
@@ -66,6 +72,7 @@
   </v-row>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     dialog: {
@@ -77,6 +84,16 @@ export default {
     return {
       loading: false
     }
+  },
+  computed: {
+    ...mapGetters({
+      motors: 'vehicleModule/motors',
+      types: 'vehicleModule/types'
+    })
+  },
+  mounted () {
+    this.$store.dispatch('vehicleModule/getCatMotors')
+    this.$store.dispatch('vehicleModule/getCatTypes')
   },
   methods: {
     async save () {}

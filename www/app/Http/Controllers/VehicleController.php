@@ -11,15 +11,11 @@ class VehicleController extends Controller
     public function getTypeMotor(Request $request)
     {
         $data = Motor::all();
-        return response()->json([
-            'data' =>  $data
-        ]);
+        return response()->json($data);
     }
     public function getTypeVehicle(Request $request)
     {
         $data = Type::all();
-        return response()->json([
-            'data' =>  $data
-        ]);
+        return response()->json($data);
     }
 }
