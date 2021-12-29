@@ -4,8 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_back
-    volumes:
-      - ./www:/app
+    # volumes:
+    #   - ./www:/app
     # expose:
     #   - '80'
     #   - '443'
