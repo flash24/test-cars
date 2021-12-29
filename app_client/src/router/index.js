@@ -34,6 +34,7 @@ const router = new VueRouter({
 
 router.beforeEach(async (to, from, next) => {
   try {
+
     if (to.name != 'Login') {
       await store.dispatch('userModule/getUserInfo');
       next();
