@@ -22,10 +22,14 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
-                  <v-text-field
-                    label="tipo de vehiculo"
-                    type="text"
-                  ></v-text-field>
+                  <v-select
+                    :items="[]"
+                    label="Tipo de vehiculo"
+                    item-text="description"
+                    item-value="id"
+                    required
+                    :rules="[v => !!v || 'El tipo de vehiculo es requerido']"
+                  ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field
