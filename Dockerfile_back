@@ -1,0 +1,27 @@
+FROM webdevops/php-nginx:7.4-alpine
+
+COPY nginx.conf /opt/docker/etc/nginx/vhost.conf
+
+COPY ./www /app
+
+WORKDIR /app
+
+RUN composer install --optimize-autoloader --no-interaction --no-progress
+
+# RUN php artisan migrate --force
+# RUN php artisan key:generate
+
+RUN chown -R www-data:www-data /app
+# RUN chmod 755 /app
+RUN chmod 775 /app
+# RUN find /app/storage -type f -exec chmod 644 {} \;
+# RUN find /app -type f -exec chmod 644 {} \;
+# RUN find /app -type d -exec chmod 755 {} \;
+# RUN chmod -R 777 storage
+# RUN chmod -R 777 /app/storage
+# RUN chmod -R 777 bootstrap/cache
+# RUN chmod -R 777 /app/bootstrap/cache
+# RUN chmod -R 777 /app/vendor
+
+# RUN chmod -R 777 public
+# RUN chmod -R 777 /app/public

@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile_back
+    volumes:
+      - ./www:/app
+    # expose:
+    #   - '80'
+    #   - '443'
+    ports:
+      - '80:80'
+    networks:
+      - vpn_BD
+  db:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: superpassword
+    networks:
+      - vpn_BD
+networks:
+  vpn_BD:
+    
