@@ -24,7 +24,7 @@ services:
     volumes:
       - ./www:/app
     ports:
-      - '3000:80'
+      - '8000:80'
     networks:
       - vpn_db
       - backend
