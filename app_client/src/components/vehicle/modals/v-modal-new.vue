@@ -11,18 +11,23 @@
               <v-row>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field
+                    v-model="form.name"
                     label="Nombre del Vehiculo"
                     type="text"
+                    :rules="[v => !!v || 'La nombre es requerido']"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-text-field
+                    v-model="form.description"
                     label="Descripcion del vehiculo"
                     type="text"
+                    :rules="[v => !!v || 'La descripcion es requerida']"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-select
+                    v-model="form.type"
                     :items="types"
                     label="Tipo de vehiculo"
                     item-text="description"
@@ -33,17 +38,19 @@
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-select
+                    v-model="form.motor"
                     :items="motors"
                     label="Tipo de motor"
                     item-text="description"
                     item-value="id"
                     required
-                    :rules="[v => !!v || 'El tipo de vehiculo es requerido']"
+                    :rules="[v => !!v || 'El tipo de motor es requerido']"
                   ></v-select>
                 </v-col>
                 <v-col cols="12" sm="6" md="6">
                   <v-select
-                    :items="[2,3,4]"
+                    v-model="form.num_tires"
+                    :items="[2, 3, 4]"
                     label="Numero de llantas"
                     required
                     :rules="[v => !!v || 'El numero de llanta es requerido']"
@@ -82,7 +89,8 @@ export default {
   },
   data () {
     return {
-      loading: false
+      loading: false,
+      form: {}
     }
   },
   computed: {
@@ -96,7 +104,36 @@ export default {
     this.$store.dispatch('vehicleModule/getCatTypes')
   },
   methods: {
-    async save () {}
+    async save () {
+      console.log(this.form)
+      this.loading = true
+      const valid = this.validate()
+      if (valid) {
+        const resp = await this.$store.dispatch('vehicleModule/storeVehicle',this.form )
+        if (!resp) {
+          this.$swal({
+            icon: 'error',
+            title: 'Incorrect data',
+            text: 'Los datos proporcionados son incorrectos'
+          })
+        }
+        if (resp) {
+          this.loading = false
+          this.$emit('close-modal')
+        }
+      }
+      this.loading = false
+      
+    },
+    validate () {
+      return this.$refs.form.validate()
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
+    resetValidation () {
+      this.$refs.form.resetValidation()
+    }
   }
 }
 </script>

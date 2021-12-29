@@ -2,8 +2,8 @@ import { ApiV1 } from '@/api/setting.js'
 export default {
     namespaced: true,
     state: {
-        motors:[],
-        types:[]
+        motors: [],
+        types: []
     },
     actions: {
         async getCatMotors({ commit }) {
@@ -21,6 +21,13 @@ export default {
             })
             commit('SET_TYPE', response.data)
             return true
+        },
+        async storeVehicle({}, data) {
+            const response = await ApiV1.post('vehicle', data).catch(e => {
+                console.error(e)
+                return false
+            })
+            return response.data
         }
     },
     mutations: {

@@ -25,7 +25,7 @@ class Vehicle extends Model
     /**
      * @var array
      */
-    protected $fillable = ['type_id', 'motor_id', 'description', 'num_tires'];
+    protected $fillable = ['type_id', 'motor_id', 'description', 'name', 'num_tires'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
