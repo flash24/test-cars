@@ -22,6 +22,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::prefix('vehicle/cat')->group(function () {
         Route::get('motors', [VehicleController::class, 'getTypeMotor']);
+        Route::get('types', [VehicleController::class, 'getTypeVehicle']);
     });
 });
 Route::post('/register', [AuthController::class, 'register']);
