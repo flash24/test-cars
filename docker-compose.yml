@@ -32,6 +32,7 @@ services:
       - backend
   migrate:
     depends_on:
+      - db
       - backend
     build:
       context: .
