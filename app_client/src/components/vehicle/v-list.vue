@@ -11,18 +11,22 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="4" v-for="n in 4" :key="n">
+      <v-col cols="4" v-for="item in list" :key="item.name">
         <v-card elevation="2">
-          <v-card-title>Cafe Badilico</v-card-title>
+          <v-card-title>{{item.name}}</v-card-title>
           <v-card-subtitle>
-            Tipo Vehiculo
+           Tipo: {{item.type.description}}
+           <br>
+           Motor: {{item.motor.description}}
+           <br>
+           LLantas : {{item.num_tires}}
           </v-card-subtitle>
-          <v-img height="250" src="https://random.imagecdn.app/500/300"></v-img>
+          <v-img height="250" src="https://image.shutterstock.com/image-photo/image-front-sports-car-scene-600w-566330083.jpg"></v-img>
           <v-card-text>
-            description
+            {{item.description}}
           </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" outlined>
+            <v-btn color="primary" outlined @click="openModalEdit(item)">
               Editar
               <v-icon left>
                 mdi-pencil
@@ -40,27 +44,48 @@
       </v-col>
     </v-row>
     <NewModal :dialog="modalNew" v-on:close-modal="closeModalNew()" />
+    <EditModal :lot_data="lotData" :dialog="modalEdit" v-on:close-modal="closeModalEdit()" />
   </v-container>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import NewModal from '@/components/vehicle/modals/v-modal-new'
+import EditModal from '@/components/vehicle/modals/v-modal-edit'
 export default {
   name: 'VehicleList',
   components: {
-    NewModal
+    NewModal,
+    EditModal
   },
   data () {
     return {
-      modalNew: false
+      modalNew: false,
+      modalEdit: false,
+      lotData: {}
     }
   },
-  mounted () {},
+  computed: {
+    ...mapGetters({
+      list: 'vehicleModule/list'
+    })
+  },
+  mounted () {
+    this.$store.dispatch('vehicleModule/getList')
+  },
   methods: {
     openModalNew () {
-        this.modalNew = true
+      this.modalNew = true
+    },
+    openModalEdit (item) {
+      this.lotData = item
+      this.modalEdit = true
     },
     closeModalNew () {
       this.modalNew = false
+      //   this.reloadList()
+    },
+    closeModalEdit () {
+      this.modalEdit = false
       //   this.reloadList()
     }
   }

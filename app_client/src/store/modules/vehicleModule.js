@@ -3,7 +3,8 @@ export default {
     namespaced: true,
     state: {
         motors: [],
-        types: []
+        types: [], 
+        list:[]
     },
     actions: {
         async getCatMotors({ commit }) {
@@ -28,6 +29,21 @@ export default {
                 return false
             })
             return response.data
+        },
+        async updateVehicle({}, data) {
+            const response = await ApiV1.put('vehicle', data).catch(e => {
+                console.error(e)
+                return false
+            })
+            return response.data
+        },
+        async getList({commit}) {
+            const response = await ApiV1.get('vehicles').catch(e => {
+                console.error(e)
+                return false
+            })
+            commit('SET_LIST', response.data)
+            return true
         }
     },
     mutations: {
@@ -37,9 +53,13 @@ export default {
         SET_TYPE(state, data) {
             state.types = data
         },
+        SET_LIST(state, data) {
+            state.list = data
+        },
     },
     getters: {
         motors: state => state.motors,
         types: state => state.types,
+        list: state => state.list,
     }
 }

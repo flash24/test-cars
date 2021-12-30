@@ -20,6 +20,11 @@ class VehicleController extends Controller
         $data = Type::all();
         return response()->json($data);
     }
+    public function ListVehicles()
+    {
+        $data = Vehicle::with('motor', 'type')->orderBy('type_id', 'desc')->get();
+        return response()->json($data);
+    }
 
     public function store(Request $request)
     {
