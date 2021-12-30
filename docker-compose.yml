@@ -6,6 +6,8 @@ services:
     restart: always
     ports: 
     - 3306:3306
+    volumes:
+      - dbV:/var/lib/mysql
     # volumes:
     #   - ./db_data:/var/lib/mysql
     environment:
@@ -67,3 +69,4 @@ networks:
   backend:
 volumes:
   back:
+  dbV:
