@@ -82,11 +82,11 @@ export default {
     },
     closeModalNew () {
       this.modalNew = false
-      //   this.reloadList()
+      this.$store.dispatch('vehicleModule/getList')
     },
     closeModalEdit () {
       this.modalEdit = false
-      //   this.reloadList()
+      this.$store.dispatch('vehicleModule/getList')
     }
   }
 }

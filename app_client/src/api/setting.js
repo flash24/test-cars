@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const api_url = process.env.MIX_APP_API_HOST;
-const api_url = "http://localhost:8000";
+// const api_url = process.env.API_HOST;
+const api_url = process.env.VUE_APP_API_URL;
 const localData = JSON.parse(localStorage.getItem('data'))
 const token = localData.userModule ? localData.userModule.token : ""
 const instance = axios.create({
