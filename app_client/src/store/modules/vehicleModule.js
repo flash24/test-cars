@@ -37,6 +37,13 @@ export default {
             })
             return response.data
         },
+        async deleteVehicle({}, data) {
+            const response = await ApiV1.delete('vehicle', { params: { id: data.id } }).catch(e => {
+                console.error(e)
+                return false
+            })
+            return response.data
+        },
         async getList({commit}) {
             const response = await ApiV1.get('vehicles').catch(e => {
                 console.error(e)

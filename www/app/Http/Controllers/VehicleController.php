@@ -74,4 +74,16 @@ class VehicleController extends Controller
         }
 
     }
+
+    public function delete(Request $request)
+    {
+        try {
+            $vehicle = Vehicle::find($request->id);
+            $vehicle->delete();
+            return response()->json($vehicle);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+
+    }
 }
