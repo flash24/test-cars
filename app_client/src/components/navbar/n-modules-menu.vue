@@ -31,7 +31,7 @@ export default {
     return {
       items: [
         { title: 'Inventario', icon: 'mdi-view-dashboard', target:"/", url:"/"},
-        { title: 'Login', icon: 'mdi-view-dashboard', target:"/login", url:"/login" },
+        { title: 'Logout', icon: 'mdi-logout', target:"/logout", url:"/logout" },
       ],
       right: null
     }
