@@ -6,8 +6,8 @@ services:
     restart: always
     ports: 
     - 3306:3306
-    volumes:
-      - ./db_data:/var/lib/mysql
+    # volumes:
+    #   - ./db_data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: 'cars'
       MYSQL_USER: 'noroot'
@@ -17,12 +17,12 @@ services:
       - vpn_db
   backend:
     depends_on:
-      - migrate
+      - db
     build:
       context: .
       dockerfile: Dockerfile_back
-    volumes:
-      - ./www:/app
+    # volumes:
+    #   - ./www:/app
     ports:
       - '8000:80'
     networks:
@@ -30,13 +30,13 @@ services:
       - backend
   migrate:
     depends_on:
-      - db
+      - backend
     build:
       context: .
       dockerfile: Dockerfile_migrate
     volumes:
       - ./www:/app
-    command: php artisan migrate --force
+    command: php artisan migrate:fresh --force --seed
     networks:
       - vpn_db
   front:
