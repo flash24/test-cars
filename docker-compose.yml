@@ -36,8 +36,8 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
-        delay: 5s
-        max_attempts: 30
+        delay: 50s
+        max_attempts: 100
         window: 120s
     depends_on:
       - db
