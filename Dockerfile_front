@@ -14,9 +14,11 @@ RUN yarn install
 
 # copiar los archivos y carpetas del proyecto al directorio de trabajo actual (es decir, la carpeta 'app')
 COPY ./app_client .
+# RUN rm .env
+# RUN cp .env.docker .env
 
 # construir aplicación para producción minificada
 RUN yarn build
 
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+CMD [ "http-server", "-P","http://localhost:8080?","dist" ]
