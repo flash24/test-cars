@@ -31,7 +31,12 @@ services:
       - vpn_db
       - backend
   migrate:
-    restart: on-failure[100]
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 30
+        window: 120s
     depends_on:
       - db
       - backend
