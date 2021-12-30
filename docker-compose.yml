@@ -21,8 +21,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_back
-    # volumes:
-    #   - ./www:/app
+    volumes:
+      - ./www:/app
     ports:
       - '8000:80'
     networks:
