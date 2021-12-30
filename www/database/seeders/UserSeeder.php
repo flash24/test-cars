@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        // DB::table('users')->delete();
+        DB::table('users')->delete();
         DB::table('users')->insert([
             'name' => Str::random(10),
             'email' => 'admin@admin.com',
