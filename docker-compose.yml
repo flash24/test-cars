@@ -22,7 +22,9 @@ services:
       context: .
       dockerfile: Dockerfile_back
     volumes:
-      - ./www:/app
+      - back:/app
+    # volumes:
+    #   - ./www:/app
     ports:
       - '8000:80'
     networks:
@@ -35,7 +37,9 @@ services:
       context: .
       dockerfile: Dockerfile_migrate
     volumes:
-      - ./www:/app
+      - back:/app
+    # volumes:
+    #   - ./www:/app
     command: php artisan migrate:fresh --force --seed
     networks:
       - vpn_db
@@ -54,4 +58,5 @@ services:
 networks:
   vpn_db:
   backend:
-    
+volumes:
+  back:
