@@ -20,7 +20,7 @@ class VehicleController extends Controller
         $data = Type::all();
         return response()->json($data);
     }
-    public function ListVehicles()
+    public function listVehicles()
     {
         $data = Vehicle::with('motor', 'type')->orderBy('type_id', 'desc')->get();
         return response()->json($data);
@@ -46,6 +46,32 @@ class VehicleController extends Controller
             'num_tires' => $request->num_tires,
         ]);
         return response()->json($vehicle);
-        // dd($request->all());
+    }
+    public function update(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'type' => 'required|numeric',
+            'motor' => 'required|numeric',
+            'num_tires' => 'required|numeric',
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+        try {
+            $vehicle = Vehicle::find($request->id);
+            $vehicle->name = $request->name;
+            $vehicle->description = $request->description;
+            $vehicle->type_id = $request->type;
+            $vehicle->motor_id = $request->motor;
+            $vehicle->num_tires = $request->num_tires;
+            $vehicle->save();
+            return response()->json($vehicle);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 500);
+        }
+
     }
 }

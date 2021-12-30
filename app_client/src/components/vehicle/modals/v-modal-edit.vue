@@ -114,13 +114,18 @@ export default {
   },
   methods: {
     async loadData () {
-        console.log(this.lot_data)
+      this.name = this.lot_data.name
+      this.description = this.lot_data.description
+      this.type = this.lot_data.type_id
+      this.motor = this.lot_data.motor_id
+      this.num_tires = this.lot_data.num_tires
     },
     async save () {
       this.loading = true
       const valid = this.validate()
       if (valid) {
         const resp = await this.$store.dispatch('vehicleModule/updateVehicle', {
+          id: this.lot_data.id,
           name: this.name,
           description: this.description,
           type: this.type,
@@ -162,7 +167,7 @@ export default {
       if (val) {
         this.loadData()
       }
-    },
+    }
   }
 }
 </script>
